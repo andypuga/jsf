@@ -1,0 +1,142 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="content">
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <div class="card">
+                    <h:form>
+                        <p:panel>
+                            <p:dataTable value="#{perBean.personas}" var="item" paginator="true"
+                                         rows="10">
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{personas.idPersona}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.idPersona}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="nombres"/>
+                                    </f:facet>
+
+                                    <h:outputText value="#{item.nombres}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListPersonaTitle_fechaNaci}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.fechaNaci}">
+                                        <f:convertDateTime pattern="MM/dd/yyyy"/>
+                                    </h:outputText>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Valor Ahorro"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.valorAhorro}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Trabaja"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.trabaja}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Referencia"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.referencia}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Descripcion"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.descripcion}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Cedula"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.identificacion}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Clave"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.contrasena}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Options"/>
+                                    </f:facet>
+
+                                    <h:commandButton actionListener="#{perBean.eliminar(item.idPersona)}" value="X">
+                                        <p:ajax update="@form" event="click"></p:ajax>
+                                    </h:commandButton>
+
+                                    <p:commandButton icon="ui-icon-pencil" partialSubmit="true"
+                                                     update="@form" global="false"
+                                                     process="@this" value="Editar" oncomplete="PF('dlg1').show();">
+                                        <f:setPropertyActionListener value="#{item}"
+                                                                     target="#{perBean.persona}"/>
+                                    </p:commandButton>
+                                </p:column>
+                            </p:dataTable>
+                            <p:commandButton icon="ui-icon-pencil" partialSubmit="true"
+                                             actionListener="#{perBean.nuevo}"
+                                             update="@form" global="false"
+                                             process="@form" value="NUEVO" oncomplete="PF('dlg1').show();">
+
+                            </p:commandButton>
+                        </p:panel>
+                        <p:dialog widgetVar="dlg1" resizable="true" header="Socio">
+                            <h:panelGrid columns="2">
+                                <p:outputLabel for="nombres" value="Nombres: "/>
+                                <p:inputText id="nombres" onkeyup="value=value.toUpperCase()"
+                                             value="#{perBean.persona.nombres}" placeholder="Nombres"/>
+
+                                <p:outputLabel for="fechaNaci" value="Fecha de Nacimiento: "/>
+                                <p:calendar id="fechaNaci" value="#{perBean.persona.fechaNaci}" format="MM/dd/yyyy"
+                                            label="Fecha" mask="true"/>
+                                <p:outputLabel for="valorAhorro" value="Valor de Ahorro: "/>
+                                <p:inputNumber id="valorAhorro" value="#{perBean.persona.valorAhorro}"
+                                               label="Valor Ahorro"/>
+                                <p:outputLabel for="trabaja" value="Trabaja: "/>
+                                <p:inputSwitch id="trabaja" value="#{perBean.persona.trabaja}" label="Trabaja"
+                                               offColor="success" offText="No" onColor="info" onText="Si"
+                                               large-screen="half"/>
+                                <p:outputLabel for="referencia" value="Referencia Personal: "/>
+                                <p:inputText id="referencia" value="#{perBean.persona.referencia}" label="Referencia"/>
+                                <p:outputLabel for="descripcion" value="Memo: "/>
+                                <p:inputText id="descripcion" value="#{perBean.persona.descripcion}"
+                                             label="Descripcion"/>
+                                <p:outputLabel for="identificacion" value="Cédula: "/>
+                                <p:inputNumber id="identificacion" value="#{perBean.persona.identificacion}"
+                                               label="Identificacion"/>
+                                <p:outputLabel for="contrasena" value="Contraseña: "/>
+                                <p:inputNumber id="contrasena" value="#{perBean.persona.contrasena}"
+                                               label="contrasena"/>
+
+                            </h:panelGrid>
+                            <br/>
+                            <div style="align-content: center ">
+                                <p:commandButton value="Guardar" style="alignment: center" ajax="true"
+                                                 actionListener="#{perBean.guardar}" look="primary"
+                                                 update="@form" global="false" process="@form"
+                                                 oncomplete="PF('dlg1').hide();">
+                                </p:commandButton>
+                            </div>
+                        </p:dialog>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+
+    </ui:define>
+
+</ui:composition>

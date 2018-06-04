@@ -1,0 +1,145 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="content">
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <div class="card">
+                    <h:form>
+                        <p:commandButton icon="ui-icon-pencil" partialSubmit="true" actionListener="#{depBean.nuevo}"
+                                         update="@form" global="false"
+                                         process="@form" value="NUEVO" oncomplete="PF('dlg1').show();">
+
+                        </p:commandButton>
+
+                        <h:commandLink value="exel" icon="fa fa-file-excel-o">
+
+                            <p:dataExporter type="xls" target="tbl" fileName="depositos" pageOnly="true"/>
+                        </h:commandLink>
+
+                        <h:commandLink value="PDF" icon="fa fa-file-pdf-o">
+
+                            <p:dataExporter type="pdf" target="tbl" fileName="depositos" pageOnly="true"/>
+                        </h:commandLink>
+
+                        <h:commandButton icon="fa fa-file-text-o">
+
+                            <p:dataExporter type="csv" target="tbl" fileName="cars" pageOnly="true"/>
+                        </h:commandButton>
+
+                        <h:commandButton icon="fa fa-file-code-o">
+
+                            <p:dataExporter type="xml" target="tbl" fileName="depositos"
+                                            pageOnly="true"></p:dataExporter>
+                        </h:commandButton>
+
+
+                        <p:dataTable id="tbl" var="item" value="#{depBean.depositos}"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+                                     paginator="true" rows="10" style="margin-bottom:20px">
+
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="VALOR"/>
+                                </f:facet>
+                                <h:outputText value="#{item.valor}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Detalle"/>
+                                </f:facet>
+                                <h:outputText value="#{item.detalle}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Numero Comprobante"/>
+                                </f:facet>
+                                <h:outputText value="#{item.numComp}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Fecha Deposito"/>
+                                </f:facet>
+                                <h:outputText value="#{item.fecha}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy"/>
+                                </h:outputText>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Numero Cuenta"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idCuenta.numCuenta}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Acciones"/>
+                                </f:facet>
+                                <h:commandLink action="#{depBean.eliminar(item.idDeposito)}" value="Eliminar"/>
+                                <p:commandButton icon="ui-icon-pencil" partialSubmit="true"
+                                                 update="@form" global="false"
+                                                 process="@this" value="Editar" oncomplete="PF('dlg1').show();">
+                                    <f:setPropertyActionListener value="#{item}"
+                                                                 target="#{depBean.deposito}"/>
+                                </p:commandButton>
+
+                            </p:column>
+                        </p:dataTable>
+                        <br/>
+                        <p:dialog widgetVar="dlg1" resizable="true" header="Deposito ">
+                            <h:panelGrid columns="2">
+
+                                <h:panelGrid columns="2">
+                                    <h:outputLabel value="Valor" for="valor"/>
+                                    <p:inputNumber id="valor" value="#{depBean.deposito.valor}" title="valor"/>
+
+                                    <h:outputLabel value="Tipo SOCIO" for="detalle"/>
+                                    <p:selectOneRadio id="detalle" value="#{depBean.deposito.detalle}">
+                                        <f:selectItem itemLabel="Estudiante" itemValue="Estudiante"/>
+                                        <f:selectItem itemLabel="Trabajador" itemValue="Trabajador"/>
+                                        <f:selectItem itemLabel="Tercera Edad" itemValue="Tercera Edad"/>
+                                    </p:selectOneRadio>
+
+
+                                    <h:outputLabel value="Numero Comprobante" for="numComp"/>
+                                    <p:inputText id="numComp" value="#{depBean.deposito.numComp}"
+                                                 title="Numero Comprobante">
+                                        <f:validateBean for="numComp"/>
+                                        <f:ajax event="keyup" render="@this inputTextMessage"/>
+                                    </p:inputText>
+                                    <h:outputLabel value="Fecha" for="fecha"/>
+                                    <p:calendar id="fecha" value="#{depBean.deposito.fecha}"
+                                                format="MM/dd/yyyy" label="Fecha" mask="true"/>
+
+                                    <h:outputLabel value="Cuenta" for="idCuenta"/>
+
+                                    <p:selectOneMenu id="idCuenta" value="#{depBean.cuenta.idCuenta}">
+                                        <!-- TODO: update below reference to list of available items-->
+                                        <f:selectItem itemLabel="Please select" itemValue=""/>
+                                        <f:selectItems value="#{depBean.listaCuentas}"/>
+                                    </p:selectOneMenu>
+                                </h:panelGrid>
+
+                            </h:panelGrid>
+                            <br/>
+                            <div style="align-content: center ">
+                                <p:commandButton value="Guardar" style="alignment: center" ajax="true"
+                                                 actionListener="#{depBean.guardar}" look="primary"
+                                                 update="@form" global="false" process="@form"
+                                                 oncomplete="PF('dlg1').hide();">
+                                </p:commandButton>
+                            </div>
+                        </p:dialog>
+
+                    </h:form>
+                </div>
+            </div>
+        </div>
+
+    </ui:define>
+
+</ui:composition>

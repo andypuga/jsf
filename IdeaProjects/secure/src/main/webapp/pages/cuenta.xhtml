@@ -1,0 +1,67 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:b="http://bootsfaces.net/ui"
+                template="/WEB-INF/template.xhtml">
+    <ui:define name="content">
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <div class="card">
+                    <b:form>
+                        <br/>
+                        <b:panel title="Cuentas" collapsible="false"  look="success">
+                            <br/>
+                            <b:commandButton value="Nuevo" look="primary" ajax="true" update="@form modalDialogID"
+                                             action="#{cuenBean.nuevo}"
+                                             oncomplete="$('.modalPseudoClass').modal();return false;"/>
+                            <br/>
+                            <br/>
+                        <div class="table-responsive">
+                            <b:dataTable value="#{cuenBean.cuentas}"
+                                         var="item">
+                                <b:dataTableColumn value="#{item.idCuenta}"/>
+                                <b:dataTableColumn value="#{item.numCuenta}"/>
+                                <b:dataTableColumn value="#{item.detalle}"/>
+                                <b:dataTableColumn value="#{item.idPersona.idPersona}"/>
+                                <b:dataTableColumn value="#{item.valorTotal}"/>
+                                <b:dataTableColumn label="opciones">
+                                    <b:commandButton look="success" ajax="true" iconAwesome="fa-pencil"
+                                                     update="@form modalDialogID"
+                                                     oncomplete="$('.modalPseudoClass').modal();return false;">
+                                        <f:setPropertyActionListener value="#{item}"
+                                                                     target="#{cuenBean.cuenta}"/>
+                                    </b:commandButton>
+                                    <b:commandButton iconAwesome="fa-close"  look="danger"
+                                                     actionListener="#{cuenBean.eliminar(item.idCuenta)}"/>
+                                </b:dataTableColumn>
+                            </b:dataTable>
+                        </div>
+                        </b:panel>
+                        <br/>
+                    </b:form>
+                    <b:modal id="modalDialogID" styleClass="modalPseudoClass" title="Cuenta">
+                        <h:form>
+                                <b:inputText label="Numero de Cuenta" id="numCuem"
+                                             value="#{cuenBean.cuenta.numCuenta}"  mask="integer"/>
+                            <p>Tipo de cuenta que maneja</p>
+                            <b:panelGrid size="xs" columns="4">
+                                <b:radiobutton value="#{cuenBean.cuenta.detalle}" itemLabel="Personal" itemValue="Personal" required="true" />
+                                <b:radiobutton value="#{cuenBean.cuenta.detalle}" itemLabel="Ahorros" itemValue="Ahorros" />
+                                <b:radiobutton value="#{cuenBean.cuenta.detalle}" itemLabel="Familiar" itemValue="Familiar" />
+                            </b:panelGrid>
+                                <b:inputText label="Valor Total" id="valortotal" value="#{cuenBean.cuenta.valorTotal}" mask="decimal"/>
+                                <b:selectOneMenu value="#{cuenBean.persona.idPersona}" label="Persona:">
+                                    <f:selectItems value="#{cuenBean.listaPersonas}"/>
+                                </b:selectOneMenu>
+
+                            <b:commandButton value="Guardar" action="#{cuenBean.guardar}"
+                                             oncomplete="$('.modalPseudoClass').modal('hide');return false;"/>
+                            <b:commandButton value="Cancelar"/>
+                        </h:form>
+                    </b:modal>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,53 @@
+buildscript {
+    ext {
+        springBootVersion = '2.0.1.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse-wtp'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'war'
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+configurations {
+    providedRuntime
+}
+
+dependencies {
+    //configuracion inicial spring boot + spring security
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework.boot:spring-boot-starter-security')
+    providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+
+    // base de datos y comunicacion
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile('org.springframework.boot:spring-boot-starter-jdbc')
+    runtime('mysql:mysql-connector-java')
+    compileOnly('org.projectlombok:lombok')
+
+    //Jsf primefaces plantilla avalon
+    compile group: 'org.joinfaces.theme', name: 'avalon', version: '1.0.3'
+    compile group: 'org.joinfaces', name: 'primefaces-spring-boot-starter', version: '3.1.0'
+
+    // https://mvnrepository.com/artifact/net.bootsfaces/bootsfaces
+    compile group: 'net.bootsfaces', name: 'bootsfaces', version: '1.2.0'
+
+
+}

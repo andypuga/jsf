@@ -1,0 +1,50 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:p="http://primefaces.org/ui"
+				template="/WEB-INF/template.xhtml">
+
+	<ui:define name="content">
+		<div class="ui-g">
+			<div class="ui-g-12">
+				<div class="card">
+					<h1>Empty Page</h1>
+					<p>Use this page to start from scratch and place your custom content.</p>
+
+					<div>
+						<form action="persona.php" method="post">
+							Nombre:<input type="text" name="nombre" id="nombre"><br>
+							Fecha: <input type="date" name="fechanaci" id="fechanaci"><br>
+							Valor Ahorro: <input type="text" name="valorahorro"
+								id="valorahorro"><br>
+							<fieldset>
+								<legend>Trabaja</legend>
+								Si <input type="radio" name="trabaja" value="true" /> No <input
+									type="radio" name="trabaja" value="false" />
+							</fieldset>
+							Referencia:<input type="text" name="referencia" id="referencia"><br>
+							Descripcion:<input type="text" name="descripcion"
+								id="descripcion"><br> Identificacion:<input
+								type="text" name="identificacion" id="identificacion"><br>
+							Contraseña:<input type="text" name="contrasena" id="contrasena"><br>
+							<input type="submit" value="Guardar">
+						</form>
+					</div>
+
+				</section>
+
+				<footer class="footer">
+					<h2>FOOTER</h2>
+					<p>Aqui todo el contenido del footer</p>
+				</footer>
+			</div>
+			</section>
+			<section id="contenido" class="content"></section>
+			</div>
+
+		</div>
+
+	</ui:define>
+
+</ui:composition>

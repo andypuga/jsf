@@ -1,0 +1,12 @@
+<application>
+  <component name="LanguageInjectionConfiguration">
+    <injection language="GenericSQL" injector-id="xml">
+      <display-name>dataExporter/@fileName</display-name>
+      <place><![CDATA[xmlAttribute().withLocalName(string().equalTo("fileName")).withParent(xmlTag().withLocalName(string().equalTo("dataExporter")).withNamespace(string().equalTo("http://primefaces.org/ui")))]]></place>
+    </injection>
+    <injection language="GenericSQL" injector-id="xml">
+      <display-name>define</display-name>
+      <place><![CDATA[xmlTag().withLocalName(string().equalTo("define")).withNamespace(string().equalTo("http://java.sun.com/jsf/facelets"))]]></place>
+    </injection>
+  </component>
+</application>

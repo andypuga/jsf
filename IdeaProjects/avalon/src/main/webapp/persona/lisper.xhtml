@@ -1,0 +1,100 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:p="http://primefaces.org/ui"
+				template="/WEB-INF/template.xhtml">
+
+	<ui:define name="content">
+		<div class="ui-g">
+			<h1>Lista de Personas</h1>
+			<h:form>
+
+
+				<p:panel>
+					<p:dataTable value="#{per.personas}" var="item" border="0"
+						cellpadding="2" cellspacing="0"
+						rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all"
+						style="border:solid 1px">
+						<p:dataTableColumn>
+							<f:facet name="header">
+								<h:outputText value="#{personas.idPersona}" />
+							</f:facet>
+							<h:outputText value="#{item.idPersona}" />
+						</p:dataTableColumn>
+						<p:dataTableColumn>
+							<f:facet name="header">
+								<h:outputText value="nombres" />
+							</f:facet>
+							<h:commandLink value="#{item.nombres}"
+								action="#{per.editar(item.idPersona)}">
+							</h:commandLink>
+
+						</p:dataTableColumn>
+						<p:dataTableColumn>
+							<f:facet name="header">
+								<h:outputText value="#{bundle.ListPersonaTitle_fechaNaci}" />
+							</f:facet>
+							<h:outputText value="#{item.fechaNaci}">
+								<f:convertDateTime pattern="MM/dd/yyyy" />
+							</h:outputText>
+						</p:dataTableColumn>
+						<p:dataTableColumn>
+							<f:facet name="header">
+								<h:outputText value="#{bundle.ListPersonaTitle_valorAhorro}" />
+							</f:facet>
+							<h:outputText value="#{item.valorAhorro}" />
+						</p:dataTableColumn>
+						<p:dataTableColumn>
+							<f:facet name="header">
+								<h:outputText value="#{bundle.ListPersonaTitle_trabaja}" />
+							</f:facet>
+							<h:outputText value="#{item.trabaja}" />
+						</p:dataTableColumn>
+						<p:dataTableColumn>
+							<f:facet name="header">
+								<h:outputText value="#{bundle.ListPersonaTitle_referencia}" />
+							</f:facet>
+							<h:outputText value="#{item.referencia}" />
+						</p:dataTableColumn>
+						<p:dataTableColumn>
+							<f:facet name="header">
+								<h:outputText value="#{bundle.ListPersonaTitle_descripcion}" />
+							</f:facet>
+							<h:outputText value="#{item.descripcion}" />
+						</p:dataTableColumn>
+						<p:dataTableColumn>
+							<f:facet name="header">
+								<h:outputText value="#{bundle.ListPersonaTitle_identificacion}" />
+							</f:facet>
+							<h:outputText value="#{item.identificacion}" />
+						</p:dataTableColumn>
+						<p:dataTableColumn>
+							<f:facet name="header">
+								<h:outputText value="#{bundle.ListPersonaTitle_contrasena}" />
+							</f:facet>
+							<h:outputText value="#{item.contrasena}" />
+						</p:dataTableColumn>
+						<p:dataTableColumn>
+							<f:facet name="header">
+								<h:outputText value="Options" />
+							</f:facet>
+
+							<h:commandLink action="#{per.eliminar(item.idPersona)}" value="X" />
+						</p:dataTableColumn>
+					</p:dataTable>
+
+					<p:commandButton value="Nuevo" ajax="true" action="#{per.nuevo()}"
+						look="primary" />
+				</p:panel>
+			</h:form>
+                  </section>
+                    <section id="contenido" class="content" >
+                    </section>
+                </div>
+
+			</div>
+
+   </ui:define>
+
+</ui:composition>

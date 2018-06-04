@@ -1,0 +1,73 @@
+   <ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pu="http://primefaces.org/avalon">
+
+    <h:form id="menuform">
+        <div class="layout-menu-container #{guestPreferences.menuClass}">
+            <div class="nano">
+                <div class="nano-content menu-scroll-content">
+                    <ui:fragment rendered="#{guestPreferences.profileMode == 'inline' and guestPreferences.menuLayout != 'menu-layout-static menu-layout-horizontal'}">
+                        <div class="profile">
+                            <a id="profile-options" href="#">
+                                <p:graphicImage name="images/avatar.png" library="avalon-layout" styleClass="profile-image" style="border: 0 none"/>
+                                <span class="profile-name">Andy Puga</span>
+                                <i class="fa fa-fw fa-caret-down"></i>
+                                <span class="profile-role">Aministrador</span>
+                            </a>
+                        </div>
+
+                        <ul id="profile-menu" class="layout-menu">
+                            <li role="menuitem">
+                                <a href="#">
+                                    <i class="fa fa-fw fa-user"></i>
+                                    <span>Perfil</span>
+                                </a>
+                                <div class="layout-menu-tooltip">
+                                    <div class="layout-menu-tooltip-arrow"></div>
+                                    <div class="layout-menu-tooltip-text">Profile</div>
+                                </div>
+                            </li>
+                            <li role="menuitem">
+                                <a href="#">
+                                    <i class="fa fa-fw fa-user-secret"></i>
+                                    <span>Privacidad</span>
+                                </a>
+                                <div class="layout-menu-tooltip">
+                                    <div class="layout-menu-tooltip-arrow"></div>
+                                    <div class="layout-menu-tooltip-text">Privacy</div>
+                                </div>
+                            </li>
+                            <li role="menuitem">
+                                <a href="#">
+                                    <i class="fa fa-fw fa-cog"></i>
+                                    <span>Herramientas</span>
+                                </a>
+                                <div class="layout-menu-tooltip">
+                                    <div class="layout-menu-tooltip-arrow"></div>
+                                    <div class="layout-menu-tooltip-text">Settings</div>
+                                </div>
+                            </li>
+                            <li role="menuitem">
+                                <a href="#">
+                                    <i class="fa fa-fw fa-sign-out"></i>
+                                    <span>Salir</span>
+                                </a>
+                                <div class="layout-menu-tooltip">
+                                    <div class="layout-menu-tooltip-arrow"></div>
+                                    <div class="layout-menu-tooltip-text">Logout</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </ui:fragment>
+
+                    <pu:menu widgetVar="me">
+                    </pu:menu>
+                </div>
+            </div>
+        </div>
+    </h:form>
+</ui:composition>

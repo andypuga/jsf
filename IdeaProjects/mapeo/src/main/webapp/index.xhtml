@@ -1,0 +1,95 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:b="http://bootsfaces.net/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="content">
+
+    <h:form >
+        <p:dataTable value="#{perBean.personas}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="idpersona}"/>
+                </f:facet>
+                <h:outputText value="#{item.idPersona}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="nombres"/>
+                </f:facet>
+                <h:outputText value="#{item.nombres}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="fecha naci"/>
+                </f:facet>
+                <h:outputText value="#{item.fechaNaci}">
+                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                </h:outputText>
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="valor ahoroor"/>
+                </f:facet>
+                <h:outputText value="#{item.valorAhorro}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="trabaja"/>
+                </f:facet>
+                <h:outputText value="#{item.trabaja}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="referencia"/>
+                </f:facet>
+                <h:outputText value="#{item.referencia}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="descripcion"/>
+                </f:facet>
+                <h:outputText value="#{item.descripcion}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="identificacion "/>
+                </f:facet>
+                <h:outputText value="#{item.identificacion}"/>
+            </p:column>
+            <b:column>
+                <f:facet name="header">
+                    <h:outputText value="contraseña"/>
+                </f:facet>
+                <h:outputText value="#{item.contrasena}"/>
+            </b:column>
+
+        </p:dataTable>
+
+    </h:form>
+
+        <h:form >
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+        <b:dataTable value="#{perBean.personas}" var="item" >
+            <b:dataTableColumn value="#{item.idPersona}"/>
+            <b:dataTableColumn value="#{item.nombres}"/>
+            <b:dataTableColumn value="#{item.fechaNaci}"/>
+            <b:dataTableColumn value="#{item.valorAhorro}"/>
+            <b:dataTableColumn value="#{item.trabaja}"/>
+            <b:dataTableColumn value="#{item.referencia}"/>
+            <b:dataTableColumn value="#{item.descripcion}"/>
+            <b:dataTableColumn value="#{item.identificacion}"/>
+            <b:dataTableColumn value="#{item.contrasena}" />
+        </b:dataTable>
+
+        </h:form>:>
+
+    </ui:define>
+
+</ui:composition>
